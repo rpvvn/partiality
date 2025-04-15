@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表白网页</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #ff7eb9, #ff65a3);
+      font-family: 'Arial', sans-serif;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .heart {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background: red;
+      transform: rotateX(45deg) rotate(-45deg);
+      transform-style: preserve-3d;
+      animation: rotate 4s infinite linear;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 50px;
+      top: 0;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotateX(45deg) rotate(-45deg) rotateY(0deg);
+      }
+      100% {
+        transform: rotateX(45deg) rotate(-45deg) rotateY(360deg);
+      }
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 24px;
+      color: white;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .love-button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: white;
+      color: red;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .love-button:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 16px;
+      color: white;
+    }
+
+    .falling-text {
+      position: absolute;
+      top: -20px;
+      left: 0;
+      font-size: 20px;
+      color: white;
+      animation: fall 5s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        top: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="falling-text-container"></div>
+<div class="container">
+  <div class="heart"></div>
+  <div class="message">我爱你❤️ xxx</div>
+  <button class="love-button">点击和我交往</button>
+  <div class="footer">
+    <p>给你最甜蜜的告白~</p>
+  </div>
+</div>
+<script>
+  const fallingTextContainer = document.getElementById('falling-text-container');
+
+  function createFallingText() {
+    const textElement = document.createElement('div');
+    textElement.classList.add('falling-text');
+    textElement.textContent = 'xxx我爱你';
+    const randomLeft = Math.random() * window.innerWidth;
+    textElement.style.left = `${randomLeft}px`;
+    fallingTextContainer.appendChild(textElement);
+
+    setTimeout(() => {
+      textElement.remove();
+    }, 5000);
+  }
+
+  setInterval(createFallingText, 500);
+</script>
+</body>
+</html>
